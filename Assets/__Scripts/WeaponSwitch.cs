@@ -7,7 +7,7 @@ public class WeaponSwitch : MonoBehaviour
     public GameObject gun;
     public GameObject sword;
 
-    // Отвечает за переключение между оружиями
+    // Переключение между оружиями
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q))

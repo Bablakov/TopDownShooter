@@ -98,9 +98,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
-  lifeTime: 0.5
-  distance: 0.5
-  damage: 1
+  lifeTime: 2
+  distance: 0
+  damage: 3
   whatIsSolid:
     serializedVersion: 2
     m_Bits: 256
+  destroyEffect: {fileID: 0}

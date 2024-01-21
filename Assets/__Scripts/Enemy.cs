@@ -6,10 +6,10 @@ public class Enemy : MonoBehaviour
 {
     // Перезарядка
     private float timeBtwAttack;
-    private float startTimeBtwAttack;
+    public float startTimeBtwAttack;
 
     public int health = 1;
-    public float speed;
+    private float speed;
     public int damage;
     // Время остановки после получения урона
     private float stopTime;
@@ -23,7 +23,6 @@ public class Enemy : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         player = FindObjectOfType<Player>();
-        normalSpeed = speed;
     }
 
     private void Update()
@@ -39,19 +38,34 @@ public class Enemy : MonoBehaviour
             stopTime -= Time.deltaTime;
         }
         
+        // Для уничтожения врага, когда у него осталось мало здоровья
         if (health <= 0)
         {
             Destroy(gameObject);
         }
-        transform.Translate(Vector2.left * speed * Time.deltaTime);
+
+        // Разворот врага
+        if(player.transform.position.x > transform.position.x)
+        {
+            transform.eulerAngles = new Vector3(0, 180, 0);
+        }
+        else
+        {
+            transform.eulerAngles = new Vector3(0, 0, 0);
+        }
+
+        // Следования врага за игроком
+        transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
     }
 
+    // Получения урона врагом
     public void TakeDamage(int damage)
     {
         stopTime = startStopTime;
         health -= damage;
     }
 
+    // При попадании в зону действия триггера проверят кто попал в неё
     public void OnTriggerStay2D(Collider2D collision)
     {
         if(collision.CompareTag("Player"))
@@ -67,9 +81,10 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    // Нанисение урона врагу
     public void OnEnemyAttack()
     {
-        player.health -= damage;
+        player.ChangeHealth(-damage);
         timeBtwAttack = startTimeBtwAttack;
     }
 }

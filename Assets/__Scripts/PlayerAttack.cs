@@ -5,6 +5,8 @@ using UnityEngine;
 // Аттака мечом
 public class PlayerAttack : MonoBehaviour
 {
+    private Player player;
+
     // Перезарядка
     private float timeBtwAttack;
     public float startTimeBtwAttack;
@@ -15,11 +17,27 @@ public class PlayerAttack : MonoBehaviour
     public int damage;
     public Animator anim;
 
+    private void Start()
+    {
+        player = GetComponent<Player>();
+        if (player.controlerType == Player.ControlerType.PC)
+        {
+            player.joystickGun.gameObject.SetActive(false);
+        }
+    }
+
+    // Проверка перезорядки и начало атаки
     private void Update()
     {
-        if (timeBtwAttack <= 0)
+        if (timeBtwAttack <= 0 && player.GetComponent<WeaponSwitch>().sword.activeSelf)
         {
-            if (Input.GetMouseButton(0))
+            // На ПК
+            if (Input.GetMouseButton(0) && Player.ControlerType.PC == player.controlerType)
+            {
+                anim.SetTrigger("attack");
+            }
+            // На Android
+            else if (player.controlerType == Player.ControlerType.Android && (player.joystickGun.Vertical > 0.3f || player.joystickGun.Horizontal > 0.3f))
             {
                 anim.SetTrigger("attack");
             }
@@ -29,7 +47,8 @@ public class PlayerAttack : MonoBehaviour
             timeBtwAttack -= Time.deltaTime;
         }
     }
-
+    
+    // Атака
     public void OnAttack()
     {
         Collider2D[] enemies = Physics2D.OverlapCircleAll(attackPos.position, attackRange, enemy);
@@ -40,6 +59,7 @@ public class PlayerAttack : MonoBehaviour
         timeBtwAttack = startTimeBtwAttack;
     }
 
+    // Отображение области атаки(не в игре)
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;

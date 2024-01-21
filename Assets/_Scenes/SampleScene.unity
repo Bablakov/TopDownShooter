@@ -572,7 +572,7 @@ GameObject:
   m_Component:
   - component: {fileID: 601897908}
   - component: {fileID: 601897909}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SwordEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -906,6 +906,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2929252283123773938, guid: aaa2c939c0359ac4dbce3f49e8b90252, type: 3}
   m_PrefabInstance: {fileID: 555339496}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &797632723 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2929252283123773951, guid: aaa2c939c0359ac4dbce3f49e8b90252, type: 3}
+  m_PrefabInstance: {fileID: 555339496}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45977bbae16431c46a013576a1aea384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &929259859
 GameObject:
   m_ObjectHideFlags: 0
@@ -1263,8 +1274,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offset: -90
   bullet: {fileID: 5318337400210896947, guid: fd529af017870aa458e5b381f34656d1, type: 3}
-  shotPoint: {fileID: 786412362}
   startTimeBtwShots: 0.25
+  shotPoint: {fileID: 786412362}
+  joystick: {fileID: 797632723}
 --- !u!1 &1232730143
 GameObject:
   m_ObjectHideFlags: 0
@@ -2263,8 +2275,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlerType: 0
   joystick: {fileID: 442244395}
+  joystickGun: {fileID: 797632723}
   speed: 8
-  health: 10
+  health: 101
 --- !u!50 &1836424968
 Rigidbody2D:
   serializedVersion: 4
@@ -2281,7 +2294,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 65878adf585726a4197736c771a05eb5, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -2409,13 +2422,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 929279f604625be4db2c40b898ef4766, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startTimeBtwAttack: 0.5
+  startTimeBtwAttack: 1
   attackPos: {fileID: 1758021927}
   enemy:
     serializedVersion: 2
     m_Bits: 256
-  attackRange: 0.52
-  damage: 1
+  attackRange: 0.67
+  damage: 10
   anim: {fileID: 1836424971}
 --- !u!1 &1938376314
 GameObject:
@@ -2543,10 +2556,10 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_LinearDrag: 1
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 6200000, guid: 65878adf585726a4197736c771a05eb5, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -2587,11 +2600,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5870082d854d4445ba204bb39ae9410, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 3
-  speed: 5
-  damage: 1
-  startStopTime: 1
-  normalSpeed: 5
+  startTimeBtwAttack: 1
+  health: 8
+  damage: 3
+  startStopTime: 0.8
+  normalSpeed: 3
 --- !u!58 &1938376321
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -10,6 +10,14 @@ public class Bullet : MonoBehaviour
     public int damage;
     public LayerMask whatIsSolid;
 
+    public GameObject destroyEffect;
+
+    // ”ничтожение пули после окончани€ еЄ врем€ жизни
+    public void Start()
+    {
+        Invoke("DestroyBullet", lifeTime);
+    }
+
     // –еализаци€ движени€ пули и нанесени€ урона врагу
     private void Update()
     {
@@ -20,8 +28,15 @@ public class Bullet : MonoBehaviour
             {
                 hitInfo.collider.GetComponent<Enemy>().TakeDamage(damage);
             }
-            Destroy(gameObject);
+            DestroyBullet();
         }
         transform.Translate(Vector2.up * speed * Time.deltaTime);
+    }
+
+    // ”ничтожение пули
+    public void DestroyBullet()
+    {
+        /*Instantiate(destroyEffect, transform.position, Quaternion.identity);*/
+        Destroy(gameObject);
     }
 }

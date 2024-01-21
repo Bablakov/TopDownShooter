@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class Player : MonoBehaviour
     public ControlerType controlerType;
     // Джостик передвежения
     public Joystick joystick;
-    // Скорость игрока
+    public Joystick joystickGun;
     public float speed;
     public int health = 10;
     public enum ControlerType { PC, Android }
@@ -19,7 +20,6 @@ public class Player : MonoBehaviour
     private Vector2 moveInput;
     // Итоговая скорость игрока в каком-то направлении
     private Vector2 moveVelocity;
-    // Анимация игрока
     private Animator anim;
 
     // Отвечает за поворот игрока
@@ -64,11 +64,22 @@ public class Player : MonoBehaviour
 
         // Поворот игрока
         if (!facingRight && moveInput.x > 0)
+        {
             Flip();
+        }
         else if (facingRight && moveInput.x < 0)
+        { 
             Flip();
+        }         
+
+        // Перезагрузка сцены после смерти игрока
+        if (health <= 0)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }    
     }
 
+    // Перемещение игрока
     private void FixedUpdate()
     {
         // Само движение игрока 
@@ -82,5 +93,11 @@ public class Player : MonoBehaviour
         Vector3 Scaler = transform.localScale;
         Scaler.x *= -1;
         transform.localScale = Scaler;
+    }
+
+    // Изменение здоровья игроку
+    public void ChangeHealth(int healtValue)
+    {
+        health += healtValue;
     }
 }
