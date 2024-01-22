@@ -53,7 +53,7 @@ public class Player : MonoBehaviour
         moveVelocity = moveInput.normalized * speed;
 
         // Анимация игрока
-        if (moveInput.x == 0)
+        if (moveInput.x == 0 && moveInput.y == 0)
         {
             anim.SetBool("isRunning", false);
         }
@@ -99,5 +99,18 @@ public class Player : MonoBehaviour
     public void ChangeHealth(int healtValue)
     {
         health += healtValue;
+    }
+
+    // Нужно для правильной анимации атаки и самой атаки мечом
+    public void StartAttack()
+    {
+        anim.SetBool("animBool", true);
+        anim.SetTrigger("attack");
+    }
+    
+    // Используется в анимации атаки мечом
+    public void EndAnimation()
+    {
+        anim.SetBool("animBool", false);
     }
 }

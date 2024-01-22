@@ -12,6 +12,8 @@ public class Bullet : MonoBehaviour
 
     public GameObject destroyEffect;
 
+    [SerializeField] bool enemyBullet = false;
+
     // ”ничтожение пули после окончани€ еЄ врем€ жизни
     public void Start()
     {
@@ -27,6 +29,10 @@ public class Bullet : MonoBehaviour
             if (hitInfo.collider.CompareTag("Enemy"))
             {
                 hitInfo.collider.GetComponent<Enemy>().TakeDamage(damage);
+            }
+            if (hitInfo.collider.CompareTag("Player") && enemyBullet)
+            {
+                hitInfo.collider.GetComponent<Player>().ChangeHealth(-damage);
             }
             DestroyBullet();
         }

@@ -34,12 +34,12 @@ public class PlayerAttack : MonoBehaviour
             // Íà ÏÊ
             if (Input.GetMouseButton(0) && Player.ControlerType.PC == player.controlerType)
             {
-                anim.SetTrigger("attack");
+                player.StartAttack();
             }
             // Íà Android
             else if (player.controlerType == Player.ControlerType.Android && (player.joystickGun.Vertical > 0.3f || player.joystickGun.Horizontal > 0.3f))
             {
-                anim.SetTrigger("attack");
+                player.StartAttack();
             }
         }
         else
