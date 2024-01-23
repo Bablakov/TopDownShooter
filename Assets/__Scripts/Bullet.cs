@@ -9,7 +9,6 @@ public class Bullet : MonoBehaviour
     public float distance;
     public int damage;
     public LayerMask whatIsSolid;
-
     public GameObject destroyEffect;
 
     [SerializeField] bool enemyBullet = false;
@@ -42,7 +41,7 @@ public class Bullet : MonoBehaviour
     // ”ничтожение пули
     public void DestroyBullet()
     {
-        /*Instantiate(destroyEffect, transform.position, Quaternion.identity);*/
+        Instantiate(destroyEffect, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 }

@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
     private float stopTime;
     public float startStopTime;
     public float normalSpeed;
+    public GameObject deathEffect;
 
     private Player player;
     private Animator anim;
@@ -41,6 +42,7 @@ public class Enemy : MonoBehaviour
         // Для уничтожения врага, когда у него осталось мало здоровья
         if (health <= 0)
         {
+            Instantiate(deathEffect, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
 

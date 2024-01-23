@@ -5,13 +5,25 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
+    [Header("Controls")]
     // Тип управления
     public ControlerType controlerType;
     // Джостик передвежения
     public Joystick joystick;
     public Joystick joystickGun;
     public float speed;
+
+    [Header("Health")]
     public int health = 10;
+    public GameObject potionEffect;
+
+    [Header("Shield")]
+    public GameObject shield;
+    public GameObject shieldEffect;
+
+    [Header("Death")]
+    public GameObject playerEffect;
+
     public enum ControlerType { PC, Android }
 
     // Rigidbody игрока
@@ -75,6 +87,8 @@ public class Player : MonoBehaviour
         // Перезагрузка сцены после смерти игрока
         if (health <= 0)
         {
+            Instantiate(playerEffect, rb.position, Quaternion.identity);
+            /*StartCoroutine(PauseScene());*/
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }    
     }
@@ -113,4 +127,27 @@ public class Player : MonoBehaviour
     {
         anim.SetBool("animBool", false);
     }
+
+    // Для бодбора зелья
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Potion"))
+        {
+            Instantiate(potionEffect, rb.position, Quaternion.identity);
+            ChangeHealth(5);
+            Destroy(collision.gameObject);
+        }
+        else if (collision.CompareTag("Shield"))
+        {
+            Instantiate(shieldEffect, rb.position, Quaternion.identity);
+            shield.SetActive(true);
+            Destroy(collision.gameObject);
+        }
+    }
+
+    // Для ожидания перед перезапуском сцены
+    /*IEnumerator PauseScene()
+    {
+        yield return new WaitForSecondsRealtime(2000);
+    }*/
 }
