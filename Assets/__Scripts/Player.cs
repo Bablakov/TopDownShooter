@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    #region Объявление полей
     [Header("Controls")]
     // Тип управления
     public ControlerType controlerType;
@@ -16,10 +18,17 @@ public class Player : MonoBehaviour
     [Header("Health")]
     public int health = 10;
     public GameObject potionEffect;
+    public Text healthDisplay;
 
     [Header("Shield")]
     public GameObject shield;
     public GameObject shieldEffect;
+    public Shield shieldTimer;
+
+    [Header("Weapons")]
+    public List<GameObject> unlockedWeapons;
+    public GameObject[] allWeapons;
+    public Image weaponIcon;
 
     [Header("Death")]
     public GameObject playerEffect;
@@ -36,6 +45,7 @@ public class Player : MonoBehaviour
 
     // Отвечает за поворот игрока
     private bool facingRight = true;
+    #endregion
 
     void Start()
     {
@@ -80,9 +90,9 @@ public class Player : MonoBehaviour
             Flip();
         }
         else if (facingRight && moveInput.x < 0)
-        { 
+        {
             Flip();
-        }         
+        }
 
         // Перезагрузка сцены после смерти игрока
         if (health <= 0)
@@ -90,7 +100,13 @@ public class Player : MonoBehaviour
             Instantiate(playerEffect, rb.position, Quaternion.identity);
             /*StartCoroutine(PauseScene());*/
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }    
+        }
+
+        // Переключение оружия
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            SwitchWeapon();
+        }
     }
 
     // Перемещение игрока
@@ -110,11 +126,86 @@ public class Player : MonoBehaviour
     }
 
     // Изменение здоровья игроку
-    public void ChangeHealth(int healtValue)
+    public void ChangeHealth(int healthValue)
     {
-        health += healtValue;
+        if (!shield.activeInHierarchy || shield.activeInHierarchy && healthValue > 0)
+        {
+            health += healthValue;
+            healthDisplay.text = $"HP: {health}";
+        }
+        else if (shield.activeInHierarchy && healthValue < 0)
+        {
+            shieldTimer.ReduceTime(healthValue);
+        }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Potion"))
+        {
+            Instantiate(potionEffect, rb.position, Quaternion.identity);
+            ChangeHealth(5);
+            Destroy(collision.gameObject);
+        }
+        else if (collision.CompareTag("Shield"))
+        {
+            // Если щит не был подобран, то выполняем его активацию
+            if (!shield.activeInHierarchy)
+            {
+                Instantiate(shieldEffect, rb.position, Quaternion.identity);
+                shieldTimer.gameObject.SetActive(true);
+                shieldTimer.isCooldown = true;
+                shield.SetActive(true);
+                Destroy(collision.gameObject);
+            }
+            // Иначе мы обнуляем таймер
+            else if (shield.activeInHierarchy && shieldTimer.isResetTimer)
+            {
+                Instantiate(shieldEffect, rb.position, Quaternion.identity);
+                shieldTimer.ResetTimer();
+                Destroy(collision.gameObject);
+            }
+        }
+        else if (collision.CompareTag("Weapon"))
+        {
+            // Проверяем есть ли такое оружие у нас во всех доступных
+            for (int i = 0; i < allWeapons.Length; i++)
+            {
+                // Если да, то закидываем в разблокированные
+                if (collision.name == allWeapons[i].name)
+                    unlockedWeapons.Add(allWeapons[i]);
+            }
+            // Сразу после подбора оружия берём в руки
+            SwitchWeapon();
+            Destroy(collision.gameObject);
+        }
+    }
+
+    // Переключение между пушками
+    public void SwitchWeapon()
+    {
+        for (int i = 0; i < unlockedWeapons.Count; i++)
+        {
+            if (unlockedWeapons[i].activeInHierarchy)
+            {
+                unlockedWeapons[i].SetActive(false);
+                if (i != 0)
+                {
+                    unlockedWeapons[i - 1].SetActive(true);
+                    weaponIcon.sprite = unlockedWeapons[i - 1].GetComponent<SpriteRenderer>().sprite;
+                }
+                else
+                {
+                    unlockedWeapons[unlockedWeapons.Count - 1].SetActive(true);
+                    weaponIcon.sprite = unlockedWeapons[unlockedWeapons.Count - 1].GetComponent<SpriteRenderer>().sprite;
+                }
+                weaponIcon.SetNativeSize();
+                break;
+            }
+        }
+    }
+
+    #region Для правильной работы анимаций
     // Нужно для правильной анимации атаки и самой атаки мечом
     public void StartAttack()
     {
@@ -127,27 +218,7 @@ public class Player : MonoBehaviour
     {
         anim.SetBool("animBool", false);
     }
+    #endregion
 
     // Для бодбора зелья
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Potion"))
-        {
-            Instantiate(potionEffect, rb.position, Quaternion.identity);
-            ChangeHealth(5);
-            Destroy(collision.gameObject);
-        }
-        else if (collision.CompareTag("Shield"))
-        {
-            Instantiate(shieldEffect, rb.position, Quaternion.identity);
-            shield.SetActive(true);
-            Destroy(collision.gameObject);
-        }
-    }
-
-    // Для ожидания перед перезапуском сцены
-    /*IEnumerator PauseScene()
-    {
-        yield return new WaitForSecondsRealtime(2000);
-    }*/
 }

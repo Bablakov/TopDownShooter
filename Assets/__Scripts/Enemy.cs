@@ -38,7 +38,7 @@ public class Enemy : MonoBehaviour
             speed = 0;
             stopTime -= Time.deltaTime;
         }
-        
+
         // Для уничтожения врага, когда у него осталось мало здоровья
         if (health <= 0)
         {
@@ -47,7 +47,7 @@ public class Enemy : MonoBehaviour
         }
 
         // Разворот врага
-        if(player.transform.position.x > transform.position.x)
+        if (player.transform.position.x > transform.position.x)
         {
             transform.eulerAngles = new Vector3(0, 180, 0);
         }
@@ -70,9 +70,9 @@ public class Enemy : MonoBehaviour
     // При попадании в зону действия триггера проверят кто попал в неё
     public void OnTriggerStay2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
-            if(timeBtwAttack <= 0)
+            if (timeBtwAttack <= 0)
             {
                 anim.SetTrigger("attack");
             }
@@ -88,5 +88,11 @@ public class Enemy : MonoBehaviour
     {
         player.ChangeHealth(-damage);
         timeBtwAttack = startTimeBtwAttack;
+    }
+
+    // Переключение на анимацию бега
+    public void OnEnemyRun()
+    {
+        anim.SetTrigger("run");
     }
 }

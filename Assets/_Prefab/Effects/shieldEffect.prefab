@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6613106486195457108}
   - component: {fileID: 8393879264358450911}
   - component: {fileID: 3998721903475563381}
+  - component: {fileID: -6446603669757444642}
   m_Layer: 0
   m_Name: shieldEffect
   m_TagString: Untagged
@@ -4888,3 +4889,15 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &-6446603669757444642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5746608746676576383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a9e1d9a3ee2c947aa2431826bc9380, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
