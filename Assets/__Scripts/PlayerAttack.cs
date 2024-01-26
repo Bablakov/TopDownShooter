@@ -29,7 +29,7 @@ public class PlayerAttack : MonoBehaviour
     // Проверка перезорядки и начало атаки
     private void Update()
     {
-        if (timeBtwAttack <= 0 && player.GetComponent<WeaponSwitch>().sword.activeSelf)
+        if (timeBtwAttack <= 0)
         {
             // На ПК
             if (Input.GetMouseButton(0) && Player.ControlerType.PC == player.controlerType)

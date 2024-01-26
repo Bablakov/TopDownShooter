@@ -65,15 +65,20 @@ public class Gun : MonoBehaviour
         // Стрельба из пушки
         if (timeBtwShots <= 0f)
         {
-            // На ПК или стрельба врага
-            if ((Input.GetMouseButtonDown(0) && player.controlerType == Player.ControlerType.PC) || gunType == GunType.Enemy)
+            if (gunType == GunType.Enemy)
             {
                 Shoot();
+            }
+            // На ПК или стрельба врага
+            else if (player.controlerType == Player.ControlerType.PC)
+            {
+                if (Input.GetMouseButton(0))
+                    Shoot();
             }
             // На Android
             else if (player.controlerType == Player.ControlerType.Android)
             {
-                if (joystick.Vertical > 0.3f || joystick.Horizontal > 0.3f) 
+                if (joystick.Vertical > 0.3f || joystick.Horizontal > 0.3f || joystick.Horizontal < -0.3f || joystick.Vertical < -0.3f) 
                 {
                     Shoot();
                 }

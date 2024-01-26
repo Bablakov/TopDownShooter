@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public GameObject floatingDamage;
+    
     // Перезарядка
     private float timeBtwAttack;
     public float startTimeBtwAttack;
@@ -65,6 +67,9 @@ public class Enemy : MonoBehaviour
     {
         stopTime = startStopTime;
         health -= damage;
+        Vector2 damagePos = new Vector2(transform.position.x, transform.position.y + 2.75f);
+        Instantiate(floatingDamage, damagePos, Quaternion.identity);
+        floatingDamage.GetComponentInChildren<FloatingDamage>().damage = damage;
     }
 
     // При попадании в зону действия триггера проверят кто попал в неё
