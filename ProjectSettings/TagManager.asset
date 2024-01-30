@@ -8,6 +8,10 @@ TagManager:
   - Potion
   - Shield
   - Weapon
+  - Block
+  - Wall
+  - RoomPoint
+  - Rooms
   layers:
   - Default
   - TransparentFX
@@ -20,7 +24,7 @@ TagManager:
   - Enemy
   - Player
   - PostProcessing
-  - 
+  - Ground
   - 
   - 
   - 

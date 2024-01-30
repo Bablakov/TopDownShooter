@@ -35,7 +35,6 @@ public class Player : MonoBehaviour
 
     public enum ControlerType { PC, Android }
 
-    // Rigidbody игрока
     private Rigidbody2D rb;
     // Для считывания в какую стороны мы движемся
     private Vector2 moveInput;
@@ -49,9 +48,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        // Получаем Rigidbody2D игрока
         rb = GetComponent<Rigidbody2D>();
-        // Получаем аниматор
         anim = GetComponent<Animator>();
 
         // Отключались джостика, когда у нас выбран ПК
@@ -139,6 +136,7 @@ public class Player : MonoBehaviour
         }
     }
 
+    // Подбор бонусов, оружия
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Potion"))
@@ -219,6 +217,4 @@ public class Player : MonoBehaviour
         anim.SetBool("animBool", false);
     }
     #endregion
-
-    // Для бодбора зелья
 }

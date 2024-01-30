@@ -103,6 +103,6 @@ MonoBehaviour:
   damage: 3
   whatIsSolid:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 2304
   destroyEffect: {fileID: 5746608746676576383, guid: 2ee007347a69d8f478d333fd5a70de10, type: 3}
   enemyBullet: 0

@@ -28,6 +28,7 @@ public class Enemy : MonoBehaviour
         player = FindObjectOfType<Player>();
     }
 
+    // ѕеремещение врага
     private void Update()
     {
         // ƒл€ контрол€ остановки игрока после получени€ урона
@@ -41,7 +42,7 @@ public class Enemy : MonoBehaviour
             stopTime -= Time.deltaTime;
         }
 
-        // ƒл€ уничтожени€ врага, когда у него осталось мало здоровь€
+        // ƒл€ уничтожени€ врага, когда у него не осталось здоровь€
         if (health <= 0)
         {
             Instantiate(deathEffect, transform.position, Quaternion.identity);
