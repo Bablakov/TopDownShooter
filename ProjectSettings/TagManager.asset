@@ -10,8 +10,13 @@ TagManager:
   - Weapon
   - Block
   - Wall
-  - RoomPoint
   - Rooms
+  - SpawnPoint
+  - Door
+  - Key
+  - Room
+  - RoomPoint
+  - Destroyer
   layers:
   - Default
   - TransparentFX
