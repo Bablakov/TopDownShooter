@@ -40,7 +40,6 @@ public class RoomVariants : MonoBehaviour
         }
     }*/
 
-    /*[HideInInspector] public List<GameObject> rooms;
 
     private void Start()
     {
@@ -51,17 +50,21 @@ public class RoomVariants : MonoBehaviour
     IEnumerator RandomSpawner()
     {
         yield return new WaitForSeconds(5f);
+        int last = rooms.Count - 1;
+        while (rooms[last].GetComponent<AddRoom>().door == null)
+            last--;
         AddRoom lastRoom = rooms[rooms.Count - 1].GetComponent<AddRoom>();
-        int rand = Random.Range(0, rooms.Count - 2);
 
-        Instantiate(key, rooms[rand].transform.position, Quaternion.identity);
-        Instantiate(gun, rooms[rooms.Count - 2].transform.position, Quaternion.identity);
+        // Получаем позицию комнаты
+        Vector3 positionBlueGun = lastRoom.transform.position;
+        // Вычесляем позицию двери, вычитая местоположения двери от местоположения комнаты и умножаем на 2,
+        // так как дверь в таком случае(после вычисления её местоположения) будет иметь координаты только в одном направлении,
+        // то и оружие бедут спавниться напротив двери с босом
+        positionBlueGun += new Vector3((lastRoom.door.transform.position.x - lastRoom.transform.position.x) * 2, (lastRoom.door.transform.position.y - lastRoom.transform.position.y) * 2);
+
+        Instantiate(key, rooms[Random.Range(1, rooms.Count - 3)].transform.position, Quaternion.identity);
+        Instantiate(gun, positionBlueGun, Quaternion.identity);
 
         lastRoom.door.SetActive(true);
-        foreach (var room in rooms)
-        {
-            room.GetComponent<AddRoom>().CheckEmptyWay();
-        }
-
-    }*/
+    }
 }

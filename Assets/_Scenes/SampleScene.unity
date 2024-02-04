@@ -1769,12 +1769,12 @@ MonoBehaviour:
   - {fileID: 2481979638947458242, guid: 344e4dd21bc185344ad07de5a3654f39, type: 3}
   - {fileID: 2481979638947458242, guid: 344e4dd21bc185344ad07de5a3654f39, type: 3}
   leftRooms:
-  - {fileID: 2481979638947458242, guid: 35886b5181243cf4bb7a0ff353173b39, type: 3}
+  - {fileID: 2481979638947458242, guid: c20a38089b3f5d64ba0f5744416c77f1, type: 3}
   - {fileID: 2481979638947458242, guid: 01fa3dc97880f724bb94a96fff98262f, type: 3}
   - {fileID: 2481979638947458242, guid: 2b35c92f1af85af43980cc0d99517ead, type: 3}
   - {fileID: 2481979638947458242, guid: 45cdc4f62fc985c41b0523b0c262a8bd, type: 3}
-  - {fileID: 2481979638947458242, guid: 35886b5181243cf4bb7a0ff353173b39, type: 3}
-  - {fileID: 2481979638947458242, guid: 35886b5181243cf4bb7a0ff353173b39, type: 3}
+  - {fileID: 2481979638947458242, guid: c20a38089b3f5d64ba0f5744416c77f1, type: 3}
+  - {fileID: 2481979638947458242, guid: c20a38089b3f5d64ba0f5744416c77f1, type: 3}
   rightRooms:
   - {fileID: 2481979638947458242, guid: e585eec17c9415d4d979dfaebdaebc2e, type: 3}
   - {fileID: 2481979638947458242, guid: 8f9fb0afc8342094e8ec5fa998b4b547, type: 3}
@@ -2473,7 +2473,7 @@ MonoBehaviour:
   joystick: {fileID: 442244395}
   joystickGun: {fileID: 797632723}
   speed: 8
-  health: 10
+  health: 10000
   potionEffect: {fileID: 5746608746676576383, guid: aad62906531659b4bbf8fc94b36cbf8c, type: 3}
   healthDisplay: {fileID: 830551987}
   shield: {fileID: 1753429783}

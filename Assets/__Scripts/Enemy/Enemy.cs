@@ -21,13 +21,13 @@ public class Enemy : MonoBehaviour
 
     private Player player;
     private Animator anim;
-    /*private AddRoom room;*/
+    private AddRoom room;
 
     private void Start()
     {
         anim = GetComponent<Animator>();
         player = FindObjectOfType<Player>();
-        /*room = GetComponentInParent<AddRoom>();*/
+        room = GetComponentInParent<AddRoom>();
     }
 
     // Перемещение врага
@@ -49,7 +49,7 @@ public class Enemy : MonoBehaviour
         {
             Instantiate(deathEffect, transform.position, Quaternion.identity);
             Destroy(gameObject);
-            /*room.enemies.Remove(gameObject);*/
+            room.enemies.Remove(gameObject);
         }
 
         // Разворот врага
