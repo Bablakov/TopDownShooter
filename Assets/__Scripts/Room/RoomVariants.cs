@@ -1,45 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 // Перечесление всех имеиющихся вариантов комнат в игре
 // Используется дальше для генерации локации
 public class RoomVariants : MonoBehaviour
 {
+    #region Initialization of the field
+    [Header("Rooms")]
     public GameObject[] topRooms;
     public GameObject[] bottomRooms;
     public GameObject[] leftRooms;
     public GameObject[] rightRooms;
-
     public GameObject closedRoom;
+    public List<GameObject> rooms;
+
+    [Header("Bonus")]
     public GameObject key;
     public GameObject gun;
 
-    public List<GameObject> rooms;
-
-    public float waitTime;
-    private bool spawnedBoss;
+    [Header("Spawn")]
+    public float waitTime = 5f;
     public GameObject Boss;
+    public Slider sliderBoss;
 
-    /*private void Update()
-    {
-        if (waitTime <= 0 && !spawnedBoss)
-        {
-            for (int i = 0; i < rooms.Count; i++)
-            {
-                if (i == rooms.Count - 1)
-                {
-                    Instantiate(Boss, rooms[i].transform.position, Quaternion.identity);
-                    spawnedBoss = true;
-                }
-            }
-        }
-        else
-        {
-            waitTime -= Time.deltaTime;
-        }
-    }*/
-
+    private AddRoom lastRoom;
+    #endregion
 
     private void Start()
     {
@@ -53,7 +40,7 @@ public class RoomVariants : MonoBehaviour
         int last = rooms.Count - 1;
         while (rooms[last].GetComponent<AddRoom>().door == null)
             last--;
-        AddRoom lastRoom = rooms[rooms.Count - 1].GetComponent<AddRoom>();
+        lastRoom = rooms[last].GetComponent<AddRoom>();
 
         // Получаем позицию комнаты
         Vector3 positionBlueGun = lastRoom.transform.position;
@@ -62,6 +49,11 @@ public class RoomVariants : MonoBehaviour
         // то и оружие бедут спавниться напротив двери с босом
         positionBlueGun += new Vector3((lastRoom.door.transform.position.x - lastRoom.transform.position.x) * 2, (lastRoom.door.transform.position.y - lastRoom.transform.position.y) * 2);
 
+        lastRoom.BossLevel = Boss;
+        lastRoom.BossSlider = sliderBoss;
+        lastRoom.RoomBoss = true; 
+        
+        // Create key and blueGun on level
         Instantiate(key, rooms[Random.Range(1, rooms.Count - 3)].transform.position, Quaternion.identity);
         Instantiate(gun, positionBlueGun, Quaternion.identity);
 

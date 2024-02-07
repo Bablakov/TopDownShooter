@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Gun : MonoBehaviour
 {
@@ -95,5 +96,11 @@ public class Gun : MonoBehaviour
     {
         Instantiate(bullet, shotPoint.position, shotPoint.rotation);
         timeBtwShots = startTimeBtwShots;
+    }
+
+    public void CircleAttackBoss()
+    {
+        for (int i = 0; i < 12; i++)
+            Instantiate(bullet, transform.position, Quaternion.Euler(0f, 0f, 30f*i));
     }
 }

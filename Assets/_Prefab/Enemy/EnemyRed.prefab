@@ -55,9 +55,10 @@ MonoBehaviour:
   floatingDamage: {fileID: 6844047342724822534, guid: 46b0c0051be0be74f94a9e2d6eaf68e7, type: 3}
   startTimeBtwAttack: 1
   health: 8
+  speed: 0
   damage: 3
   startStopTime: 0.8
-  normalSpeed: 3
+  normalSpeed: 2
   deathEffect: {fileID: 5746608746676576383, guid: 371eabd17ba81ca4a806ab7521c328a5, type: 3}
 --- !u!50 &7149290335801392299
 Rigidbody2D:

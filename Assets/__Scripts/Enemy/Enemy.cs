@@ -7,23 +7,23 @@ public class Enemy : MonoBehaviour
     public GameObject floatingDamage;
     
     // Перезарядка
-    private float timeBtwAttack;
+    protected float timeBtwAttack;
     public float startTimeBtwAttack;
 
     public int health = 1;
-    private float speed;
+    public float speed;
     public int damage;
     // Время остановки после получения урона
-    private float stopTime;
+    protected float stopTime;
     public float startStopTime;
     public float normalSpeed;
     public GameObject deathEffect;
 
-    private Player player;
-    private Animator anim;
-    private AddRoom room;
+    protected Player player;
+    protected Animator anim;
+    protected AddRoom room;
 
-    private void Start()
+    protected virtual void Start()
     {
         anim = GetComponent<Animator>();
         player = FindObjectOfType<Player>();
@@ -31,9 +31,9 @@ public class Enemy : MonoBehaviour
     }
 
     // Перемещение врага
-    private void Update()
+    protected virtual void Update()
     {
-        // Для контроля остановки игрока после получения урона
+        // Для контроля остановки врага после получения урона
         if (stopTime <= 0)
         {
             speed = normalSpeed;
@@ -67,7 +67,7 @@ public class Enemy : MonoBehaviour
     }
 
     // Получения урона врагом
-    public void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage)
     {
         stopTime = startStopTime;
         health -= damage;
