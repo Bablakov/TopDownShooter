@@ -13,7 +13,7 @@ public class ChangeRoom : MonoBehaviour
         cam = Camera.main.GetComponent<Camera>();
     }
 
-    // Для перемещения камеру в другую камеру
+    // Для перемещения камеру в другую комнату
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))

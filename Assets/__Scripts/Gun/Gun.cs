@@ -13,7 +13,7 @@ public class Gun : MonoBehaviour
     public float startTimeBtwShots;
     // Место спавна пули
     public Transform shotPoint;
-    public Joystick joystick;
+    private Joystick joystick;
 
     // Переменные для отслеживания перезарядки
     private float timeBtwShots;
@@ -30,6 +30,7 @@ public class Gun : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        joystick = player.joystickGun;
         // Если режим ПК то джостик стельбы отключаем
         if (player.controlerType == Player.ControlerType.PC && GunType.Default == gunType)
         {

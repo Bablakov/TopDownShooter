@@ -50,6 +50,7 @@ public class Player : MonoBehaviour
     // Отвечает за поворот игрока
     private bool facingRight = true;
     private bool keyButtonPushed;
+    private bool murdered = false;
     
     #endregion
 
@@ -99,11 +100,10 @@ public class Player : MonoBehaviour
         }
 
         // Перезагрузка сцены после смерти игрока
-        if (health <= 0)
+        if (health <= 0 && !murdered)
         {
-            Instantiate(playerEffect, rb.position, Quaternion.identity);
-            /*StartCoroutine(PauseScene());*/
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            murdered = true;
+            StartCoroutine(MurderPlayer());
         }
 
         // Переключение оружия
@@ -132,7 +132,7 @@ public class Player : MonoBehaviour
     // Изменение здоровья игроку
     public void ChangeHealth(int healthValue)
     {
-        if (!shield.activeInHierarchy || shield.activeInHierarchy && healthValue > 0)
+        if (!shield.activeInHierarchy || shield.activeInHierarchy && healthValue > 0 && health > 0)
         {
             health += healthValue;
             healthDisplay.text = $"HP: {health}";
@@ -140,6 +140,11 @@ public class Player : MonoBehaviour
         else if (shield.activeInHierarchy && healthValue < 0)
         {
             shieldTimer.ReduceTime(healthValue);
+        }
+        if (health < 0)
+        {
+            health = 0;
+            healthDisplay.text = $"HP: {health}";
         }
     }
 
@@ -230,6 +235,13 @@ public class Player : MonoBehaviour
                 break;
             }
         }
+    }
+
+    private IEnumerator MurderPlayer()
+    {
+        Instantiate(playerEffect, rb.position, Quaternion.identity);
+        yield return new WaitForSeconds(1);
+        SceneTransition.SwitchToScene("MenuScene");
     }
 
     #region Для правильной работы анимаций

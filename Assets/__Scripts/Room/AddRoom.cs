@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal.Profiling.Memory.Experimental.FileFormat;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -100,7 +99,7 @@ public class AddRoom : MonoBehaviour
             {
                 GameObject enemy = Instantiate(BossLevel, BossSpawners.position, Quaternion.identity);
                 BossSlider.gameObject.SetActive(true);
-                BossLevel.GetComponent<Boss>().healthBar = BossSlider;
+                Boss.roomBoss = this;
                 spawned = true;
                 enemies.Add(enemy);
             }

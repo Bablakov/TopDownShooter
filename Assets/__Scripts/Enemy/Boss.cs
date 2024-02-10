@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Boss : Enemy
 {
+    public static AddRoom roomBoss;
     public Slider healthBar;
     private int startHealth;
     public Gun CircleAttack;
@@ -15,6 +16,7 @@ public class Boss : Enemy
         startHealth = health;
         stadyAttack = startHealth - 50;
         speed = normalSpeed;
+        healthBar = roomBoss.BossSlider;
         anim = GetComponent<Animator>();
         player = FindObjectOfType<Player>();
     }
